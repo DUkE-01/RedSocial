@@ -1,0 +1,160 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
+            color: #555555;
+            font-size: 1.2rem;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #007bff;
+        }
+        .main-content {
+            padding: 2rem;
+        }
+        .card-body img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+        .chat-container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .chat-container .message {
+            margin-bottom: 15px;
+        }
+        .chat-container .message .sender {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .chat-container .message .message-body {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">MyPal</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Amigos", "Home")"><i class="fas fa-user-friends"></i> Amigos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Perfil", "Home")"><i class="fas fa-user"></i> Mi Perfil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("CerrarSesion", "Home")"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="row">
+            <!-- Publicaciones -->
+            <div class="col-md-8">
+                <div class="main-content">
+                    <h2>Publicaciones</h2>
+                    <form method="post" enctype="multipart/form-data" asp-action="PostPublication">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3" placeholder="¿Qué estás pensando?" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="uploadImage">Subir imagen</label>
+                            <input type="file" class="form-control-file" id="uploadImage" name="uploadImage">
+                        </div>
+                        <div class="form-group">
+                            <label for="videoLink">Enlace de video de YouTube</label>
+                            <input type="url" class="form-control" id="videoLink" name="videoLink">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Publicar</button>
+                    </form>
+                    <div class="mt-4">
+                        <!-- Lista de publicaciones -->
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Publicación del usuario</h5>
+                                <p class="card-text">Contenido de la publicación</p>
+                                <div class="d-flex align-items-center">
+                                    <img src="~/images/profile.jpg" class="rounded-circle mr-3" alt="...">
+                                    <div>
+                                        <h6 class="mb-0">Nombre del amigo</h6>
+                                        <small>Comentario del amigo</small>
+                                    </div>
+                                </div>
+                                <form class="mt-3" method="post" asp-action="Comment">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Escribe un comentario...">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm">Comentar</button>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Fin de publicación -->
+                    </div>
+                </div>
+            </div>
+            <!-- Chat -->
+            <div class="col-md-4">
+                <div class="chat-container">
+                    <h3>Chat con amigo</h3>
+                    <div class="message">
+                        <div class="sender">Nombre del amigo</div>
+                        <div class="message-body">¡Hola! ¿Cómo estás?</div>
+                    </div>
+                    <div class="message">
+                        <div class="sender">Tú</div>
+                        <div class="message-body">¡Hola! Estoy bien, gracias.</div>
+                    </div>
+                    <!-- Formulario de envío de mensaje -->
+                    <form method="post" asp-action="SendMessage">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3" placeholder="Escribe tu mensaje..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
