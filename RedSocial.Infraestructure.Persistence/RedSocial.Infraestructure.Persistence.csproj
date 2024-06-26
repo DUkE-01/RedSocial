@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contexts\" />
-    <Folder Include="Repositories\" />
+    <ProjectReference Include="..\RedSocial.Core.Application\RedSocial.Core.Application.csproj" />
+    <ProjectReference Include="..\RedSocial.Core.Domain\RedSocial.Core.Domain.csproj" />
   </ItemGroup>
 
 </Project>

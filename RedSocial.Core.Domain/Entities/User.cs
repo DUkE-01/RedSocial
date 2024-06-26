@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace RedSocial.Core.Domain.Entities
 {
@@ -18,6 +14,6 @@ namespace RedSocial.Core.Domain.Entities
             public string ProfilePictureUrl { get; set; }
             public bool IsActive { get; set; }
             public ICollection<Post> Posts { get; set; }
-            public ICollection<Friend> Friends { get; set; }
+            public ICollection<Amigo> Friends { get; set; }
     }
 }

@@ -1,39 +1,77 @@
 ﻿using AutoMapper;
-using IdentityServer3.Core.Services;
-using RedSocial.Core.Application.Interfaces;
-using RedSocial.Core.Application.ViewModels;
-using RedSocial.Core.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RedSocial.Core.Application.Dtos.Account;
+using RedSocial.Core.Application.Dtos.User;
+using RedSocial.Core.Application.Helpers;
+using RedSocial.Core.Application.Interfaces.Services;
+using RedSocial.Core.Application.ViewModels.Usuario;
+
+
 
 namespace RedSocial.Core.Application.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
-        private readonly IEmailService _emailService;
+        private readonly IUserApplication _userApplication;
 
-        public UserService(IUserRepository userRepository, IMapper mapper, IEmailService emailService)
+        public UserService(IAccountService accountService, IMapper mapper, IUserApplication userApplication)
         {
-            _userRepository = userRepository;
+            _accountService = accountService;
             _mapper = mapper;
-            _emailService = emailService;
+            _userApplication = userApplication;
+
         }
 
-        public async Task RegisterUserAsync(RegisterViewModel model)
+        public async Task<AuthenticationResponse> LoginAsync(LoginViewModel vm)
         {
-            var user = _mapper.Map<User>(model);
-            user.Password = HashPassword(model.Password);
-            user.IsActive = false;
-
-            await _userRepository.AddAsync(user);
-            await _emailService.SendActivationEmailAsync(user.Email, user.ActivationCode);
+            AuthenticationRequest loginRequest = _mapper.Map<AuthenticationRequest>(vm);
+            AuthenticationResponse userResponse = await _accountService.AuthenticateAsync(loginRequest);
+            return userResponse;
+        }
+        public async Task SignOutAsync()
+        {
+            await _accountService.SignOutAsync();
         }
 
-        // Otros métodos para Login, ResetPassword, etc.
+        public async Task<RegisterResponse> RegisterAsync(SaveUserViewModel vm, string origin)
+        {
+            RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
+            return await _accountService.RegisterUserAsync(registerRequest, origin);
+        }
+
+        public async Task<string> ConfirmEmailAsync(string userId, string token)
+        {
+            return await _accountService.ConfirmAccountAsync(userId, token);
+        }
+
+        public async Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordViewModel vm, string origin)
+        {
+            ForgotPasswordRequest forgotRequest = _mapper.Map<ForgotPasswordRequest>(vm);
+            return await _accountService.ForgotPasswordAsync(forgotRequest, origin);
+        }
+
+        public async Task<ResetPasswordResponse> ResetPasswordAsync(ResetPasswordViewModel vm)
+        {
+            vm.Password = Generador.GenerarContrasena();
+            ResetPasswordRequest resetRequest = _mapper.Map<ResetPasswordRequest>(vm);
+            return await _accountService.ResetPasswordAsync(resetRequest);
+        }
+
+        public async Task<UpdateUserResponse> Update(UpdateUserViewModel vm)
+        {
+            UpdateUserRequest UpdateRequest = _mapper.Map<UpdateUserRequest>(vm);
+            return await _userApplication.Update(UpdateRequest);
+        }
+
+        public async Task<UserResponse> GetByEmailUser(string email)
+        {
+            return await _userApplication.GetByEmailUser(email);
+        }
+
+
+
+
+
     }
 }

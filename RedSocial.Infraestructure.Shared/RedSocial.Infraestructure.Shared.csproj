@@ -12,4 +12,8 @@
     <PackageReference Include="MimeKit" Version="4.6.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RedSocial.Core.Application\RedSocial.Core.Application.csproj" />
+  </ItemGroup>
+
 </Project>

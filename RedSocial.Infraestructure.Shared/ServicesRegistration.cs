@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using RedSocial.Core.Application.Interfaces.Services;
+using RedSocial.Core.Domain.Settings;
+using RedSocial.Infraestructure.Shared.Services;
+
 
 namespace RedSocial.Infraestructure.Shared
 {
-    internal class ServicesRegistration
+    public static class ServiceRegistration
     {
+        public static void AddSharedInfrastructure(this IServiceCollection services, IConfiguration _config)
+        {
+            services.Configure<MailSettings>(_config.GetSection("MailSettings"));
+            services.AddTransient<IEmailService, EmailService>();
+        }
     }
 }

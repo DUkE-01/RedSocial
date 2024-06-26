@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RedSocial.Core.Application.ViewModels
+namespace RedSocial.Core.Application.ViewModels.Usuario
 {
     public class RegisterViewModel
     {
-        
-    [Required]
+
+        [Required]
         public string FirstName { get; set; }
 
         [Required]

@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using RedSocial.Core.Domain.Common;
+
 
 namespace RedSocial.Core.Domain.Entities
 {
-    public class Post
+    public class Post : BaseEntity
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public string Content { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public string ImageUrl { get; set; }
-        public string YouTubeUrl { get; set; }
-        public User User { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public string? VideoUrl { get; set; }
+        public string? ImageURL { get; set; }
+        public string Caption { get; set; }
+        public string UserID { get; set; }
+
+        //Navigation properties
+
+        public ICollection<Comentario>? Comentarios { get; set; }
     }
 }
