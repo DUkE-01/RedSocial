@@ -20,10 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Middlewares\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\RedSocial.Core.Application\RedSocial.Core.Application.csproj" />
     <ProjectReference Include="..\RedSocial.Core.Domain\RedSocial.Core.Domain.csproj" />
     <ProjectReference Include="..\RedSocial.Infraestructure.Identity\RedSocial.Infraestructure.Identity.csproj" />

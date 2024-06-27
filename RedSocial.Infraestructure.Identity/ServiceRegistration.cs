@@ -46,7 +46,7 @@ namespace RedSocial.Infraestructure.Identity
 
             #region Servicios
             services.AddTransient<IAccountService, AccountService>();
-            //services.AddTransient<IUserApplication, UserService>();
+            services.AddTransient<IUserApplication, UserService>();
 
             #endregion
         }

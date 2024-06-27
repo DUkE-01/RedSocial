@@ -5,8 +5,6 @@ using RedSocial.Core.Application.Helpers;
 using RedSocial.Core.Application.Interfaces.Services;
 using RedSocial.Core.Application.ViewModels.Usuario;
 
-
-
 namespace RedSocial.Core.Application.Services
 {
     public class UserService : IUserService

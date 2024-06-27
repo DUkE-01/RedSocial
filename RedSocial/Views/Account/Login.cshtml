@@ -1,0 +1,30 @@
+@using RedSocial.Core.Application.ViewModels.Usuario;
+@model LoginViewModel
+
+@{
+    ViewData["Tittle"] = "Login";
+}
+
+
+<main class="d-flex justify-content-center align-items-center vh-100">
+
+    <form method="post" asp-controller="Account" asp-action="Index">
+
+
+
+        <h1 class="h3 mb-3 fw-normal">Bienvenido Sr.</h1>
+
+        <div class="form-floating">
+            <input asp-for="Username" class="form-control" id="floatingInput" placeholder="Username">
+            <label asp-for="Username" for="floatingInput">Username</label>
+        </div>
+
+        <div class="form-floating mt-2">
+            <input asp-for="Password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label asp-for="Password" for="floatingPassword">Password</label>
+        </div>
+
+        <button class="btn btn-info w-100 py-2 mt-2" type="submit">Log in</button>
+        @Html.ValidationSummary(false, "", new { @class = "text-danger mt-3" })
+    </form>
+</main>
