@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using RedSocial.Core.Application.Dtos.Account;
 using RedSocial.Core.Application.Dtos.User;
@@ -6,10 +6,11 @@ using RedSocial.Core.Application.Interfaces.Services;
 using RedSocial.Core.Application.ViewModels.Usuario;
 using RedSocial.Core.Application.Helpers;
 using RedSocial.Middlewares;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RedSocial.Controllers
 {
-
+   
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
@@ -33,7 +34,7 @@ namespace RedSocial.Controllers
 
         [ServiceFilter(typeof(LoginAuthorize))]
         [HttpPost]
-        public async Task<IActionResult> Index(LoginViewModel vm)
+        public async Task<IActionResult> Login(LoginViewModel vm)
         {
             if (!ModelState.IsValid)
             {
@@ -79,7 +80,7 @@ namespace RedSocial.Controllers
             }
             /* Get file directory */
 
-            string basePath = $"/images/users/{ID}";
+            string basePath = $"/Users/users/{ID}";
             string path = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot{basePath}");
 
             // Create user folder if not exists
@@ -119,16 +120,16 @@ namespace RedSocial.Controllers
             return $"{basePath}/{fileName}";
         }
 
-        public async Task<IActionResult> Register()
+        public async Task<IActionResult> Registro()
         {
             return View(new SaveUserViewModel());
         }
 
         [ServiceFilter(typeof(LoginAuthorize))]
         [HttpPost]
-        public async Task<IActionResult> Register(SaveUserViewModel vm)
+        public async Task<IActionResult> Registro(SaveUserViewModel vm)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) 
             {
                 return View("Index", vm);
             }
@@ -155,8 +156,7 @@ namespace RedSocial.Controllers
             vm.HasError = response.HasError;
             vm.Error = response.Error;
 
-            @ViewBag.ErrorState = response.HasError;
-            @ViewBag.ErrorStateMessage = response.Error;
+        
             return RedirectToRoute(new { controller = "User", action = "Index" });
         }
 
@@ -167,6 +167,8 @@ namespace RedSocial.Controllers
             return View("ConfirmEmail", response);
         }
 
+
+         [Authorize]
         public async Task<IActionResult> LogOut()
         {
             await _userService.SignOutAsync();

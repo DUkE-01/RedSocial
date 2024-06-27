@@ -21,32 +21,28 @@
         {
 
 
-            <nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom" data-bs-theme="dark">
-                <div class="container">
-     
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
-    
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav flex-grow-1 justify-content-between">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <svg class="bi" width="24" height="24"><use xlink:href="#aperture"></use></svg>
-                                </a>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Amigos</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Perfil</a></li>
-                         
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <svg class="bi" width="24" height="24"><use xlink:href="#cart"></use></svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">MyPal</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Amigos", "Home")"><i class="fas fa-user-friends"></i> Amigos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Perfil", "Home")"><i class="fas fa-user"></i> Mi Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("CerrarSesion", "Home")"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-        </nav>
+            </nav>
         }
     </header>
     <div class="container">

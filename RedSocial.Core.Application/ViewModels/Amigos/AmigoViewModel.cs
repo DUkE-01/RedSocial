@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace RedSocial.Core.Application.ViewModels.Following
 {
-    public class FollowingViewModel
+    public class AmigoViewModel
     {
         public int ID { get; set; }
 

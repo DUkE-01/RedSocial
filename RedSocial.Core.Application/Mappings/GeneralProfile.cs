@@ -42,7 +42,22 @@ namespace RedSocial.Core.Application.Mappings
                 .ForMember(x => x.Error, opt => opt.Ignore())
              .ReverseMap();
 
-          
+            CreateMap<Post, PostViewModel>()
+              .ForMember(dest => dest.CommentList, opt => opt.Ignore())
+              .ForMember(dest => dest.UserName, opt => opt.Ignore())
+              .ReverseMap()
+              .ForMember(dest => dest.Comentarios, opt => opt.Ignore())
+             ;
+
+            CreateMap<Post, SavePostViewModel>()
+                .ForMember(dest => dest.Photo, opt => opt.Ignore())
+                .ReverseMap();
+
+            CreateMap<PostViewModel, SavePostViewModel>()
+              .ForMember(dest => dest.Photo, opt => opt.Ignore())
+              .ReverseMap();
+
+
         }
     }
 }
